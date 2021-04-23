@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,11 +12,11 @@ namespace Client.Scripts
 
         private List<Vector3[]> _strokes;
 
-        private int _curNumStroke = 0;
+        private int _curNumStroke;
         private Vector3[] _currentStroke;
         private bool _isStrokeStart;
 
-        private int _reachedPoint = 0;
+        private int _reachedPoint;
         
         private Camera _camera;
         private Vector2 _prevMousePosition;

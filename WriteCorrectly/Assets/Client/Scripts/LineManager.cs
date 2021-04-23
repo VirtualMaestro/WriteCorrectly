@@ -8,12 +8,11 @@ namespace Client.Scripts
     {
         [SerializeField] 
         private DrawSettingsSo drawConfig;
-        
-        private List<GameObject> _lines;
+
         private List<Vector2> _currentLine;
         private LineRenderer _lineRenderer;
 
-        private bool drawing = false;
+        private bool _isDrawing;
 
         private Camera _camera;
     
@@ -25,35 +24,33 @@ namespace Client.Scripts
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
-                _OnStartDraw();
+                _StartDraw();
             
             if (Input.GetMouseButtonUp(0))
-                _OnEndDraw();
+                _EndDraw();
         }
 
-        private void _OnStartDraw()
+        private void _StartDraw()
         {
-            drawing = true;
+            _isDrawing = true;
             
             StartCoroutine(_Drawing());
         }
     
-        private void _OnEndDraw()
+        private void _EndDraw()
         {
-            drawing = false;
+            _isDrawing = false;
         }
 
         IEnumerator _Drawing()
         {
             _StartLine();
 
-            while (drawing)
+            while (_isDrawing)
             {
                 _AddPoint(_GetCurrentWorldPoint());
                 yield return null;
             }
-
-            _EndLine();
         }
 
         private void _StartLine()
@@ -100,11 +97,6 @@ namespace Client.Scripts
             var distance = Vector2.Distance(point, _currentLine[_currentLine.Count - 1]);
 
             return distance >= drawConfig.settings.lineSeparationDistance;
-        }
-
-        private void _EndLine()
-        {
-
         }
     }
 }
