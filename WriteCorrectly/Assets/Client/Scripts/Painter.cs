@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Client.Scripts.Ds;
 using UnityEngine;
 
 namespace Client.Scripts
 {
-    public class LineManager : MonoBehaviour
+    public class Painter : MonoBehaviour
     {
         [SerializeField] 
         private DrawSettingsSo drawConfig;

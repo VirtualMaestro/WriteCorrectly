@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.Ds
 {
     [CreateAssetMenu(menuName = "DrawSettings", fileName = "DrawSettingsSO")]
     public class DrawSettingsSo : ScriptableObject

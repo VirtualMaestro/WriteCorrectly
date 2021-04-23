@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Client.Scripts.Ds;
 using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.Utils
 {
     public static class DrawUtil
     {
@@ -19,7 +20,7 @@ namespace Client.Scripts
         
         public static Vector3[] DrawLine(Vector3[] vertices, Transform parent = null, DrawSettings settings = null)
         {
-            vertices = LineSmoother.SmoothLine(vertices, 0.8f);
+            vertices = LineSmootherUtil.SmoothLine(vertices, 0.8f);
             var lineRenderer = _CreateLineRenderer(parent, settings);
 
             foreach (var vertex in vertices)

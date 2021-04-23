@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.Ds
 {
     [Serializable]
     public class DrawSettings
