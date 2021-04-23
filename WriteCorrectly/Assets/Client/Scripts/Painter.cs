@@ -80,7 +80,7 @@ namespace Client.Scripts
 
         private void _AddPoint(Vector2 point)
         {
-            if (PlacePoint(point))
+            if (_PlacePoint(point))
             {
                 _currentLine.Add(point);
                 var positionCount = _lineRenderer.positionCount;
@@ -90,7 +90,7 @@ namespace Client.Scripts
             }
         }
 
-        private bool PlacePoint(Vector2 point)
+        private bool _PlacePoint(Vector2 point)
         {
             if (_currentLine.Count == 0)
                 return true;
