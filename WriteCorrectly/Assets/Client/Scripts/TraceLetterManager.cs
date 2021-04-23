@@ -40,7 +40,7 @@ namespace Client.Scripts
             _tracePointSize = appSettings.tracePointSize;
             _actionPointSize= appSettings.actionPointSize;
             
-            _strokes = DrawUtil.DrawLetter(letter, transform, appSettings.letterTemplateDrawSettings);
+            _strokes = DrawUtil.DrawLetter(letter, appSettings.letterTemplateDrawSettings, transform, appSettings.letterSmoothness);
             _pathTracer.Init(_strokes, _tracePointSize, _actionPointSize);
         }
 

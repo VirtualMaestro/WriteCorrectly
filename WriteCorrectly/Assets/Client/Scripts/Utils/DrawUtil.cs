@@ -6,22 +6,22 @@ namespace Client.Scripts.Utils
 {
     public static class DrawUtil
     {
-        public static List<Vector3[]> DrawLetter(Letter letter, Transform parent = null, DrawSettings settings = null)
+        public static List<Vector3[]> DrawLetter(Letter letter, DrawSettings settings, Transform parent = null, float smoothness = 0.6f)
         {
             var result = new List<Vector3[]>();
             
             foreach (var stroke in letter.strokes)
             {
-                result.Add(DrawLine(stroke.GetVertices(), parent, settings));
+                result.Add(DrawLine(stroke.GetVertices(), settings, parent, smoothness));
             }
 
             return result; 
         }
         
-        public static Vector3[] DrawLine(Vector3[] vertices, Transform parent = null, DrawSettings settings = null)
+        public static Vector3[] DrawLine(Vector3[] vertices, DrawSettings settings, Transform parent = null, float smoothness = 0.6f)
         {
-            vertices = LineSmootherUtil.SmoothLine(vertices, 0.8f);
-            var lineRenderer = _CreateLineRenderer(parent, settings);
+            vertices = LineSmootherUtil.SmoothLine(vertices, smoothness);
+            var lineRenderer = _CreateLineRenderer(settings, parent);
 
             foreach (var vertex in vertices)
             {
@@ -31,7 +31,7 @@ namespace Client.Scripts.Utils
             return vertices;
         }
         
-        private static LineRenderer _CreateLineRenderer(Transform parent = null, DrawSettings settings = null)
+        private static LineRenderer _CreateLineRenderer(DrawSettings settings, Transform parent = null)
         {
             var line = new GameObject("Line"); 
             if (parent != null) 
@@ -39,14 +39,14 @@ namespace Client.Scripts.Utils
             
             var lineRenderer = line.AddComponent<LineRenderer>();
             lineRenderer.positionCount = 0;
-            lineRenderer.startWidth = settings?.lineWidth ?? 0.1f;
-            lineRenderer.endWidth = settings?.lineWidth ?? 0.1f;
-            lineRenderer.startColor = settings?.lineColor ?? Color.red;
-            lineRenderer.endColor = settings?.lineColor ?? Color.red;
+            lineRenderer.startWidth = settings.lineWidth;
+            lineRenderer.endWidth = settings.lineWidth;
+            lineRenderer.startColor = settings.lineColor;
+            lineRenderer.endColor = settings.lineColor;
             lineRenderer.useWorldSpace = false;
-            lineRenderer.numCapVertices = settings?.lineCapVertices ?? 5;
-            lineRenderer.numCornerVertices = settings?.lineCapVertices ?? 5;
-            lineRenderer.material = settings?.drawMaterial ? settings?.drawMaterial : null;
+            lineRenderer.numCapVertices = settings.lineCapVertices;
+            lineRenderer.numCornerVertices = settings.lineCapVertices;
+            lineRenderer.material = settings.drawMaterial;
 
             return lineRenderer;
         }

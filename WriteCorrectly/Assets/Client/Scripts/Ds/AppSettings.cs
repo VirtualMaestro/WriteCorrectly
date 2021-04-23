@@ -9,6 +9,7 @@ namespace Client.Scripts.Ds
         public float mouseSensitivity = 0.1f;
         public float tracePointSize = 0.5f;
         public float actionPointSize = 0.5f;
+        public float letterSmoothness = 0.6f;
         public DrawSettings fillDrawSettings;
         public DrawSettings letterTemplateDrawSettings;
         public List<Letter> Letters;
