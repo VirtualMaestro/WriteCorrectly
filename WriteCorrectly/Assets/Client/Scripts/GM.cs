@@ -20,9 +20,11 @@ namespace Client.Scripts
 
         public AppSettings AppSettings => appSettings;
 
+        private int _curLetterIndex;
+
         private void Start()
         {
-            var letter = appSettings.Letters[0];
+            var letter = appSettings.Letters[_curLetterIndex];
             OnDrawingLetterStart?.Invoke(letter);
         }
 
@@ -53,8 +55,10 @@ namespace Client.Scripts
         private PopupWindow _ShowPopup()
         {
             messageWindow.SetActive(true);
+            
             var popupComponent = messageWindow.GetComponent<PopupWindow>();
             popupComponent.OnTryAgain += _OnRestart;
+            popupComponent.OnNext += _OnNext;
             
             OnDrawingLetterEnd?.Invoke();
             return popupComponent;
@@ -63,6 +67,7 @@ namespace Client.Scripts
         private void _HidePopup()
         {
             messageWindow.GetComponent<PopupWindow>().OnTryAgain -= _OnRestart;
+            messageWindow.GetComponent<PopupWindow>().OnNext -= _OnNext;
             messageWindow.SetActive(false);
         }
 
@@ -73,11 +78,19 @@ namespace Client.Scripts
             StartCoroutine(_StartDrawingLetter());
         }
 
+        private void _OnNext()
+        {
+            _HidePopup();
+            _curLetterIndex++;
+            _curLetterIndex = _curLetterIndex % appSettings.Letters.Count;
+            StartCoroutine(_StartDrawingLetter());
+        }
+
         IEnumerator _StartDrawingLetter()
         {
             yield return new WaitForEndOfFrame();
-            
-            var letter = appSettings.Letters[0];
+            Debug.LogWarning($"Start drawing: {_curLetterIndex}");
+            var letter = appSettings.Letters[_curLetterIndex];
             OnDrawingLetterStart?.Invoke(letter);
         }
     }

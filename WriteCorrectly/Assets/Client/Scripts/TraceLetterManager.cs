@@ -60,13 +60,11 @@ namespace Client.Scripts
 
         private void _OnTraceComplete()
         {
-            Debug.Log("Trace complete!");
             GM.I.TraceComplete();
         }
         
         private void _OnWrongDirection()
         {
-            Debug.LogWarning("Wrong direction!");
             GM.I.WrongDirection();
         }
 
@@ -77,7 +75,6 @@ namespace Client.Scripts
 
         private void _OnIncorrectStrokeStart()
         {
-            Debug.LogWarning("Stroke starts incorrectly!");
             GM.I.IncorrectStrokeStart();
         }
 
@@ -88,7 +85,6 @@ namespace Client.Scripts
 
          private void _OnIncorrectStrokeEnd()
         {
-            Debug.LogWarning("Stroke ends incorrectly!");
             GM.I.IncorrectStrokeEnd();
         }
 

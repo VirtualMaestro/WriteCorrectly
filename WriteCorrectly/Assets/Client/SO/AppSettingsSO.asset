@@ -15,7 +15,9 @@ MonoBehaviour:
   mouseSensitivity: 0.2
   tracePointSize: 0.3
   actionPointSize: 0.5
+  letterSmoothness: 0.5
   fillDrawSettings: {fileID: 11400000, guid: 41817e028279e1a45a3aa0709ad66742, type: 2}
   letterTemplateDrawSettings: {fileID: 11400000, guid: 5562b044eeb3cb24b85550acf047b53e, type: 2}
   Letters:
   - {fileID: 11400000, guid: 239aed771aba58147a16e48d7e353548, type: 2}
+  - {fileID: 11400000, guid: bae8ef2a4c6d2ad44b29fa20bcdd6c27, type: 2}
