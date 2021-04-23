@@ -73,8 +73,16 @@ namespace Client.Scripts
                 }
                 else break;
             }
-        }
 
+            if (_reachedPoint >= _currentStroke.Length - 1)
+            {
+                var lenBetweenMouseAndLast =
+                    Vector2.Distance(_currentStroke[_currentStroke.Length - 1], _currentMousePosition);
+
+                if (lenBetweenMouseAndLast > _tracePointSize)
+                    OnWrongDirection?.Invoke();
+            }
+        }
 
         public void EndStroke(Vector2 mousePosition)
         {
@@ -85,6 +93,7 @@ namespace Client.Scripts
                 OnCorrectStrokeEnd?.Invoke();
 
                 _curNumStroke++;
+                _reachedPoint = 0;
 
                 if (_curNumStroke >= _strokes.Count)
                 {

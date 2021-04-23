@@ -20,6 +20,8 @@ namespace Client.Scripts
 
         private void _OnDrawingStart(Letter letter)
         {
+            _CleaUp();
+            
             _lineSeparationDistance = GM.I.AppSettings.mouseSensitivity;
             _drawConfig = GM.I.AppSettings.fillDrawSettings;
 
@@ -31,6 +33,7 @@ namespace Client.Scripts
         {
             IM.I.OnMouseDown -= _OnStartDraw;
             IM.I.OnMouseUp -= _OnEndDraw;
+            IM.I.OnMouseMove -= _OnDrawing;
         }
 
         private void _OnStartDraw(Vector2 mousePosition)
@@ -79,6 +82,14 @@ namespace Client.Scripts
             var distance = Vector2.Distance(point, _currentLine[_currentLine.Count - 1]);
 
             return distance >= _lineSeparationDistance;
+        }
+        
+        private void _CleaUp()
+        {
+            for (var i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
         }
     }
 }

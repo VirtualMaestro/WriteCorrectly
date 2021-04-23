@@ -55,16 +55,19 @@ namespace Client.Scripts
             
             IM.I.OnMouseDown -= _OnStrokeStart;
             IM.I.OnMouseUp -= _OnStrokeEnd;
+            IM.I.OnMouseMove -= _OnTrace;
         }
 
         private void _OnTraceComplete()
         {
             Debug.Log("Trace complete!");
+            GM.I.TraceComplete();
         }
         
         private void _OnWrongDirection()
         {
             Debug.LogWarning("Wrong direction!");
+            GM.I.WrongDirection();
         }
 
         private void _OnCorrectStrokeStart()
@@ -75,6 +78,7 @@ namespace Client.Scripts
         private void _OnIncorrectStrokeStart()
         {
             Debug.LogWarning("Stroke starts incorrectly!");
+            GM.I.IncorrectStrokeStart();
         }
 
         private void _OnCorrectStrokeEnd()
@@ -85,18 +89,19 @@ namespace Client.Scripts
          private void _OnIncorrectStrokeEnd()
         {
             Debug.LogWarning("Stroke ends incorrectly!");
+            GM.I.IncorrectStrokeEnd();
         }
 
         private void _OnStrokeStart(Vector2 mousePosition)
         {
-            _pathTracer.BeginStroke(mousePosition);
             IM.I.OnMouseMove += _OnTrace;
+            _pathTracer.BeginStroke(mousePosition);
         }
 
         private void _OnStrokeEnd(Vector2 mousePosition)
         {
-            _pathTracer.EndStroke(mousePosition);
             IM.I.OnMouseMove -= _OnTrace;
+            _pathTracer.EndStroke(mousePosition);
         }
 
         private void _OnTrace(Vector2 mousePosition)

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0990b080b9435ea6332dbae94527a7, type: 3}
+  m_Name: AppSettingsSO
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 0.2
+  tracePointSize: 0.3
+  actionPointSize: 0.5
+  fillDrawSettings: {fileID: 11400000, guid: 41817e028279e1a45a3aa0709ad66742, type: 2}
+  letterTemplateDrawSettings: {fileID: 11400000, guid: 5562b044eeb3cb24b85550acf047b53e, type: 2}
+  Letters:
+  - {fileID: 11400000, guid: 239aed771aba58147a16e48d7e353548, type: 2}
