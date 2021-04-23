@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Client.Scripts.Ds;
 using UnityEngine;
@@ -7,97 +6,79 @@ namespace Client.Scripts
 {
     public class Painter : MonoBehaviour
     {
-        [SerializeField] 
-        private DrawSettingsSo drawConfig;
+        private DrawSettings _drawConfig;
 
+        private float _lineSeparationDistance;
         private List<Vector2> _currentLine;
         private LineRenderer _lineRenderer;
 
-        private bool _isDrawing;
-
-        private Camera _camera;
-    
         void Awake()
         {
-            _camera = Camera.main;
+            GM.I.OnDrawingLetterStart += _OnDrawingStart;
+            GM.I.OnDrawingLetterEnd += _OnDrawingEnd;
         }
 
-        private void Update()
+        private void _OnDrawingStart(Letter letter)
         {
-            if (Input.GetMouseButtonDown(0))
-                _StartDraw();
-            
-            if (Input.GetMouseButtonUp(0))
-                _EndDraw();
+            _lineSeparationDistance = GM.I.AppSettings.mouseSensitivity;
+            _drawConfig = GM.I.AppSettings.fillDrawSettings;
+
+            IM.I.OnMouseDown += _OnStartDraw;
+            IM.I.OnMouseUp += _OnEndDraw;
         }
 
-        private void _StartDraw()
+        private void _OnDrawingEnd()
         {
-            _isDrawing = true;
-            
-            StartCoroutine(_Drawing());
-        }
-    
-        private void _EndDraw()
-        {
-            _isDrawing = false;
+            IM.I.OnMouseDown -= _OnStartDraw;
+            IM.I.OnMouseUp -= _OnEndDraw;
         }
 
-        IEnumerator _Drawing()
+        private void _OnStartDraw(Vector2 mousePosition)
         {
-            _StartLine();
+            IM.I.OnMouseMove += _OnDrawing;
 
-            while (_isDrawing)
-            {
-                _AddPoint(_GetCurrentWorldPoint());
-                yield return null;
-            }
-        }
-
-        private void _StartLine()
-        {
             _currentLine = new List<Vector2>();
-            
-            var line = new GameObject("Line"); 
+
+            var line = new GameObject("Line");
             line.transform.parent = transform;
 
             _lineRenderer = line.AddComponent<LineRenderer>();
             _lineRenderer.positionCount = 0;
-            _lineRenderer.startWidth = drawConfig.settings?.lineWidth ?? 0.1f;
-            _lineRenderer.endWidth = drawConfig.settings?.lineWidth ?? 0.1f;
-            _lineRenderer.startColor = drawConfig.settings?.lineColor ?? Color.green;
-            _lineRenderer.endColor = drawConfig.settings?.lineColor ?? Color.green;
+            _lineRenderer.startWidth = _drawConfig.lineWidth;
+            _lineRenderer.endWidth = _drawConfig.lineWidth;
+            _lineRenderer.startColor = _drawConfig.lineColor;
+            _lineRenderer.endColor = _drawConfig.lineColor;
             _lineRenderer.useWorldSpace = true;
-            _lineRenderer.numCapVertices = drawConfig.settings?.lineCapVertices ?? 5;
-            _lineRenderer.numCornerVertices = drawConfig.settings?.lineCapVertices ?? 5;
-            _lineRenderer.material = drawConfig.settings?.drawMaterial ? drawConfig.settings?.drawMaterial : null;
+            _lineRenderer.numCapVertices = _drawConfig.lineCapVertices;
+            _lineRenderer.numCornerVertices = _drawConfig.lineCapVertices;
+            _lineRenderer.material = _drawConfig.drawMaterial;
         }
 
-        private Vector2 _GetCurrentWorldPoint()
+        private void _OnDrawing(Vector2 mousePosition)
         {
-            return _camera.ScreenToWorldPoint(Input.mousePosition);
-        }
-
-        private void _AddPoint(Vector2 point)
-        {
-            if (_PlacePoint(point))
+            if (_CanPlacePoint(mousePosition))
             {
-                _currentLine.Add(point);
+                _currentLine.Add(mousePosition);
                 var positionCount = _lineRenderer.positionCount;
                 positionCount++;
                 _lineRenderer.positionCount = positionCount;
-                _lineRenderer.SetPosition(positionCount - 1, point);
+                _lineRenderer.SetPosition(positionCount - 1, mousePosition);
             }
         }
 
-        private bool _PlacePoint(Vector2 point)
+        private void _OnEndDraw(Vector2 mousePosition)
+        {
+            IM.I.OnMouseMove -= _OnDrawing;
+        }
+
+        private bool _CanPlacePoint(Vector2 point)
         {
             if (_currentLine.Count == 0)
                 return true;
-            
+
             var distance = Vector2.Distance(point, _currentLine[_currentLine.Count - 1]);
 
-            return distance >= drawConfig.settings.lineSeparationDistance;
+            return distance >= _lineSeparationDistance;
         }
     }
 }

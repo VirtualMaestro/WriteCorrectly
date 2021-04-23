@@ -1,12 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Client.Scripts.Ds
 {
-    [Serializable]
-    public class DrawSettings
+    [CreateAssetMenu(menuName = "Create draw settings", fileName = "DrawSettingsSO")]
+    public class DrawSettings : ScriptableObject
     {
-        public float lineSeparationDistance = 0.2f;
         public float lineWidth = 0.1f;
         public Color lineColor = Color.black;
         public int lineCapVertices = 5;
