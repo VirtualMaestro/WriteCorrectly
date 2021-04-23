@@ -11,10 +11,17 @@ namespace Client.Scripts.Common
 
         private static T _CreateSingleton()
         {
-            var ownerObject = new GameObject($"{typeof(T).Name} (singleton)");
-            var instance = ownerObject.AddComponent<T>();
-            DontDestroyOnLoad(ownerObject);
-            return instance;
+            var existingInstance = FindObjectsOfType<T>();
+            
+            if (existingInstance == null || existingInstance.Length == 0)
+            {
+                var ownerObject = new GameObject($"{typeof(T).Name} (singleton)");
+                var instance = ownerObject.AddComponent<T>();
+                DontDestroyOnLoad(ownerObject);
+                return instance;
+            }
+
+            return existingInstance[0];
         }
     }
 }
