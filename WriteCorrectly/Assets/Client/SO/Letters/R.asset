@@ -25,3 +25,4 @@ MonoBehaviour:
   - points:
     - {x: 0, y: 4}
     - {x: 5, y: 0}
+  letter: {fileID: 1419826227079910038, guid: 652f25129f6983f409f0208ecf4f3ae9, type: 3}

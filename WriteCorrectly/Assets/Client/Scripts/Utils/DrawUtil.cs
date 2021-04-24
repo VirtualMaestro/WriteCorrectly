@@ -10,7 +10,8 @@ namespace Client.Scripts.Utils
         {
             var result = new List<Vector3[]>();
             
-            foreach (var stroke in letter.strokes)
+            // foreach (var stroke in letter.strokes)
+            foreach (var stroke in letter.GetStrokes())
             {
                 result.Add(DrawLine(stroke.GetVertices(), settings, parent, smoothness));
             }
@@ -44,8 +45,8 @@ namespace Client.Scripts.Utils
             lineRenderer.startColor = settings.lineColor;
             lineRenderer.endColor = settings.lineColor;
             lineRenderer.useWorldSpace = false;
-            lineRenderer.numCapVertices = settings.lineCapVertices;
-            lineRenderer.numCornerVertices = settings.lineCapVertices;
+            lineRenderer.numCapVertices = settings.capVertices;
+            lineRenderer.numCornerVertices = settings.cornerVertices;
             lineRenderer.material = settings.drawMaterial;
 
             return lineRenderer;

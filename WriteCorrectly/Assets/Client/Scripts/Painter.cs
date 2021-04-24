@@ -52,8 +52,8 @@ namespace Client.Scripts
             _lineRenderer.startColor = _drawConfig.lineColor;
             _lineRenderer.endColor = _drawConfig.lineColor;
             _lineRenderer.useWorldSpace = true;
-            _lineRenderer.numCapVertices = _drawConfig.lineCapVertices;
-            _lineRenderer.numCornerVertices = _drawConfig.lineCapVertices;
+            _lineRenderer.numCapVertices = _drawConfig.capVertices;
+            _lineRenderer.numCornerVertices = _drawConfig.capVertices;
             _lineRenderer.material = _drawConfig.drawMaterial;
         }
 

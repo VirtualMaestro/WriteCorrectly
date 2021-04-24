@@ -7,6 +7,7 @@ namespace Client.Scripts
 {
     public class TraceLetterManager : MonoBehaviour
     {
+        public bool showGizmo;
         private List<Vector3[]> _strokes;
 
         private float _tracePointSize = 0.5f;
@@ -115,7 +116,7 @@ namespace Client.Scripts
 
         void OnDrawGizmos()
         {
-            if (_strokes != null)
+            if (showGizmo && _strokes != null)
             {
                 Gizmos.color = Color.blue;
 
