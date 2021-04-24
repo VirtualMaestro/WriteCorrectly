@@ -21,14 +21,14 @@ namespace Client.Scripts
 
         private void Update()
         {
+            if (_MouseMoved(out var mouseWorldPosition))
+                OnMouseMove?.Invoke(mouseWorldPosition);
+            
             if (Input.GetMouseButtonDown(0))
                 OnMouseDown?.Invoke(_GetMousePosition());
-            
+
             if (Input.GetMouseButtonUp(0))
                 OnMouseUp?.Invoke(_GetMousePosition());
-
-            if (_MouseMoved(out var mouseWorldPosition))
-                OnMouseMove?.Invoke(mouseWorldPosition);                
         }
         
         private bool _MouseMoved(out Vector2 mouseWorldPosition)

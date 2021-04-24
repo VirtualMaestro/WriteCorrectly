@@ -15,17 +15,18 @@ namespace Client.Scripts
         [SerializeField] 
         private GameObject messageWindow;
         
-        public event Action<Letter> OnDrawingLetterStart;
+        public event Action OnDrawingLetterStart;
         public event Action OnDrawingLetterEnd;
 
         public AppSettings AppSettings => appSettings;
 
         private int _curLetterIndex;
 
+        public Letter GetCurrentLetter => appSettings.Letters[_curLetterIndex];
+
         private void Start()
         {
-            var letter = appSettings.Letters[_curLetterIndex];
-            OnDrawingLetterStart?.Invoke(letter);
+            OnDrawingLetterStart?.Invoke();
         }
 
         public void IncorrectStrokeStart()
@@ -89,9 +90,7 @@ namespace Client.Scripts
         IEnumerator _StartDrawingLetter()
         {
             yield return new WaitForEndOfFrame();
-            Debug.LogWarning($"Start drawing: {_curLetterIndex}");
-            var letter = appSettings.Letters[_curLetterIndex];
-            OnDrawingLetterStart?.Invoke(letter);
+            OnDrawingLetterStart?.Invoke();
         }
     }
 }

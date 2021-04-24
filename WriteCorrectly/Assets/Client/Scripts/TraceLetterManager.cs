@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Client.Scripts.Ds;
 using Client.Scripts.Utils;
 using UnityEngine;
 
@@ -7,6 +6,8 @@ namespace Client.Scripts
 {
     public class TraceLetterManager : MonoBehaviour
     {
+        public bool showGizmo = true;
+        
         private List<Vector3[]> _strokes;
 
         private float _tracePointSize = 0.5f;
@@ -22,7 +23,7 @@ namespace Client.Scripts
             _pathTracer = new PathTracer();
         }
 
-        private void _OnDrawingStart(Letter letter)
+        private void _OnDrawingStart()
         {
             _CleaUp();
             
@@ -40,7 +41,7 @@ namespace Client.Scripts
             _tracePointSize = appSettings.tracePointSize;
             _actionPointSize= appSettings.actionPointSize;
             
-            _strokes = DrawUtil.DrawLetter(letter, appSettings.letterTemplateDrawSettings, transform, appSettings.letterSmoothness);
+            _strokes = DrawUtil.DrawLetter(GM.I.GetCurrentLetter, appSettings.letterTemplateDrawSettings, transform, appSettings.letterSmoothness);
             _pathTracer.Init(_strokes, _tracePointSize, _actionPointSize);
         }
 
@@ -115,7 +116,7 @@ namespace Client.Scripts
 
         void OnDrawGizmos()
         {
-            if (_strokes != null)
+            if (showGizmo && _strokes != null)
             {
                 Gizmos.color = Color.blue;
 

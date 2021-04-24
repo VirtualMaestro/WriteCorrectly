@@ -7,7 +7,8 @@ namespace Client.Scripts.Ds
     {
         public float lineWidth = 0.1f;
         public Color lineColor = Color.black;
-        public int lineCapVertices = 5;
+        public int capVertices = 5;
+        public int cornerVertices = 0;
         public Material drawMaterial;
     }
 }

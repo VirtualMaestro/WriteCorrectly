@@ -44,8 +44,8 @@ namespace Client.Scripts.Utils
             lineRenderer.startColor = settings.lineColor;
             lineRenderer.endColor = settings.lineColor;
             lineRenderer.useWorldSpace = false;
-            lineRenderer.numCapVertices = settings.lineCapVertices;
-            lineRenderer.numCornerVertices = settings.lineCapVertices;
+            lineRenderer.numCapVertices = settings.capVertices;
+            lineRenderer.numCornerVertices = settings.cornerVertices;
             lineRenderer.material = settings.drawMaterial;
 
             return lineRenderer;

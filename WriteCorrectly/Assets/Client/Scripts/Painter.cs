@@ -12,13 +12,15 @@ namespace Client.Scripts
         private List<Vector2> _currentLine;
         private LineRenderer _lineRenderer;
 
+        private bool _isDrawingDisable = true;
+
         void Awake()
         {
             GM.I.OnDrawingLetterStart += _OnDrawingStart;
             GM.I.OnDrawingLetterEnd += _OnDrawingEnd;
         }
 
-        private void _OnDrawingStart(Letter letter)
+        private void _OnDrawingStart()
         {
             _CleaUp();
             
@@ -27,6 +29,8 @@ namespace Client.Scripts
 
             IM.I.OnMouseDown += _OnStartDraw;
             IM.I.OnMouseUp += _OnEndDraw;
+
+            _isDrawingDisable = false;
         }
 
         private void _OnDrawingEnd()
@@ -34,10 +38,14 @@ namespace Client.Scripts
             IM.I.OnMouseDown -= _OnStartDraw;
             IM.I.OnMouseUp -= _OnEndDraw;
             IM.I.OnMouseMove -= _OnDrawing;
+            
+            _isDrawingDisable = true;
         }
 
         private void _OnStartDraw(Vector2 mousePosition)
         {
+            if (_isDrawingDisable) return;
+            
             IM.I.OnMouseMove += _OnDrawing;
 
             _currentLine = new List<Vector2>();
@@ -52,8 +60,8 @@ namespace Client.Scripts
             _lineRenderer.startColor = _drawConfig.lineColor;
             _lineRenderer.endColor = _drawConfig.lineColor;
             _lineRenderer.useWorldSpace = true;
-            _lineRenderer.numCapVertices = _drawConfig.lineCapVertices;
-            _lineRenderer.numCornerVertices = _drawConfig.lineCapVertices;
+            _lineRenderer.numCapVertices = _drawConfig.capVertices;
+            _lineRenderer.numCornerVertices = _drawConfig.cornerVertices;
             _lineRenderer.material = _drawConfig.drawMaterial;
         }
 

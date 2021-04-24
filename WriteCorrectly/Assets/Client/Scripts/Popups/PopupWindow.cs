@@ -32,7 +32,7 @@ namespace Client.Scripts.Popups
         public void ShowIncorrectStartPosition()
         {
             label.text = "Oops!";
-            message.text = "You've started from wrong position!";
+            message.text = "You've started at wrong position!";
             
             tryBtn.SetActive(true);
             nextBtn.SetActive(false);
@@ -50,7 +50,7 @@ namespace Client.Scripts.Popups
         public void ShowWrongDirection()
         {
             label.text = "Oops!";
-            message.text = "You moved to wrong direction!";
+            message.text = "You moved in wrong direction!";
             
             tryBtn.SetActive(true);
             nextBtn.SetActive(false);
