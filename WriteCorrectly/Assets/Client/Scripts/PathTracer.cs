@@ -57,8 +57,8 @@ namespace Client.Scripts
 
                 if (lenBetweenCurrentAndMouse >= lenBetweenCurrentAndNextPoints)
                 {
-                    var isIntersect = IntersectionUtil.IsIntersectLineToCircle(_currentStroke[_reachedPoint],
-                        _currentMousePosition,
+                    var isIntersect = IntersectionUtil.IsIntersectLineToCircle(
+                        _currentStroke[_reachedPoint], _currentMousePosition,
                         _currentStroke[_reachedPoint + 1], _tracePointSize);
 
                     if (isIntersect)
