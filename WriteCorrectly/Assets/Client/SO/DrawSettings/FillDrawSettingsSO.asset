@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineWidth: 0.5
   lineColor: {r: 0.13550198, g: 0.990566, b: 0.17351022, a: 1}
-  lineCapVertices: 5
+  capVertices: 5
+  cornerVertices: 0
   drawMaterial: {fileID: 2100000, guid: 4f6c962e41cf3df479a6fdd798013a2d, type: 2}
